@@ -21,11 +21,17 @@ class Impianto implements JsonSerializable{
     function trovaUmidita($id){
         $rilevatore = null;
         foreach ($this->listaRilevatori as $r) {
-            if($r->get_id() == $id){
-                $rilevatore = $r;
+            if (is_a($r, 'RilevatoreDiUmidita')) {
+                if($r->get_id() == $id){
+                    $rilevatore = $r;
+                }
             }
         }
         return $rilevatore;
+    }
+
+    function aggiungiRilevazione($r){
+        return array_push($this->listaRilevatori, $r);
     }
 
     public function jsonSerialize(){
