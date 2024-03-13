@@ -18,10 +18,42 @@ class Impianto implements JsonSerializable{
         $this->listaRilevatori = array($r1, $r2);
     }
 
+    function listaUmidita(){
+        $l = array();
+        foreach ($this->listaRilevatori as $r) {
+            if (is_a($r, 'RilevatoreDiUmidita')) {
+                array_push($l, $r);
+            }
+        }
+        return $l;
+    }
+
+    function listaTemperatura(){
+        $l = array();
+        foreach ($this->listaRilevatori as $r) {
+            if (is_a($r, 'RilevatoreDiTemperatura')) {
+                array_push($l, $r);
+            }
+        }
+        return $l;
+    }
+
     function trovaUmidita($id){
         $rilevatore = null;
         foreach ($this->listaRilevatori as $r) {
             if (is_a($r, 'RilevatoreDiUmidita')) {
+                if($r->get_id() == $id){
+                    $rilevatore = $r;
+                }
+            }
+        }
+        return $rilevatore;
+    }
+
+    function trovaTemperatura($id){
+        $rilevatore = null;
+        foreach ($this->listaRilevatori as $r) {
+            if (is_a($r, 'RilevatoreDiTemperatura')) {
                 if($r->get_id() == $id){
                     $rilevatore = $r;
                 }

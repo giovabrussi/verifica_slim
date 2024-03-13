@@ -7,8 +7,8 @@ require_once("./Impianto.php");
 class ControllerUmidita{
 
     function show(Request $request, Response $response, $args) {
-        $r = new RilevatoreDiUmidita("Umidita1", 101);
-        $response->getBody()->write(json_encode($r));
+        $Impianto = new Impianto("Impianto1", 43.7695604, 11.2558136);
+        $response->getBody()->write(json_encode($Impianto->listaUmidita()));
         return $response->withHeader("Content-Type", "application/json")->withStatus(200);
     }
 
@@ -74,7 +74,7 @@ class ControllerUmidita{
         $id = $parseBody['id'];
         $codiceSeriale = $parseBody['codiceSeriale']; 
 
-        $r = new RilevatoreDiUmidita($id, $codiceSeriale);
+        $r = new RilevatoreDiTemperatura($id, $codiceSeriale);
         $Impianto = new Impianto("Impianto1", 43.7695604, 11.2558136);
         
         $response->getBody()->write($Impianto->aggiungiRilevazione($r));
